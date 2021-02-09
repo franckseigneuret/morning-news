@@ -13,7 +13,7 @@ function ScreenSource() {
 
       const data = await fetch('https://newsapi.org/v2/sources?language=fr&country=fr&apiKey=074d1c4547884ebeb0659a460b5d1f37')
       const body = await data.json()
-      console.log(body.sources)
+      // console.log(body.sources)
       setSourceList(body.sources)
     }
     APIResultsLoading()
