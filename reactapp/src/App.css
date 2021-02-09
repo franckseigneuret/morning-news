@@ -8,6 +8,7 @@ h4 {
 
 .Login-page{
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -63,4 +64,9 @@ h4 {
 
 }
 
-
+.error {
+  width: 100%;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}

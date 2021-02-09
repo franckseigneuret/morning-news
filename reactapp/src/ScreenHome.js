@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import './App.css';
 import { Input, Button } from 'antd';
 
 function ScreenHome() {
 
+  const [redirect, setRedirect] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const [signUpUsername, setSignUpUsername] = useState('')
   const [signUpPassword, setSignUpPassword] = useState('')
 
@@ -15,12 +17,21 @@ function ScreenHome() {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `username=${signUpUsername}&password=${signUpPassword}`
     })
-
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === true) {
+          setRedirect(true)
+        } else {
+          setErrorMessage(data.message)
+        }
+      })
   }
 
   return (
     <div className="Login-page">
-
+      <div className="error">
+        {errorMessage}
+      </div>
       {/* SIGN-IN */}
       <div className="Sign">
         <Input className="Login-input" placeholder="arthur@lacapsule.com" />
@@ -34,7 +45,10 @@ function ScreenHome() {
       <div className="Sign">
         <Input className="Login-input" placeholder="Arthur G" onChange={(e) => setSignUpUsername(e.target.value)} />
         <Input.Password className="Login-input" placeholder="password" onChange={(e) => setSignUpPassword(e.target.value)} />
-        <Button href="" style={{ width: '80px' }} type="primary" onClick={() => handleSubmitSignUp()}>Sign-up</Button>
+        <Button style={{ width: '80px' }} type="primary" onClick={() => handleSubmitSignUp()}>Sign-up</Button>
+        {
+          redirect ? <Redirect to="screensource" /> : ''
+        }
       </div>
 
     </div>

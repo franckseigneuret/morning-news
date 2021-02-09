@@ -17,7 +17,7 @@ router.post('/sign-up', async function(req, res, next) {
   const userAdded = await addUser.save()
   
   const message = userAdded.name === req.body.name ? true : false
-  console.log('message = ', message)
+  // res.json({ message: 'pas le droit :(' });
   res.json({ message });
 });
 
