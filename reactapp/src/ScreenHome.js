@@ -9,6 +9,8 @@ function ScreenHome() {
   const [errorMessage, setErrorMessage] = useState('')
   const [signUpUsername, setSignUpUsername] = useState('')
   const [signUpPassword, setSignUpPassword] = useState('')
+  const [signInUsername, setSignInUsername] = useState('')
+  const [signInPassword, setSignInPassword] = useState('')
 
   const handleSubmitSignUp = async () => {
 
@@ -27,6 +29,26 @@ function ScreenHome() {
       })
   }
 
+  const handleSubmitSignIn = async () => {
+
+    await fetch('/sign-in', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `username=${signInUsername}&password=${signInPassword}`
+    })
+      .then(response => {
+        let j = response.json()
+        return j
+      })
+      .then(data => {
+        if (data.message === true) {
+          setRedirect(true)
+        } else {
+          setErrorMessage(data.message)
+        }
+      })
+  }
+
   return (
     <div className="Login-page">
       <div className="error">
@@ -34,11 +56,9 @@ function ScreenHome() {
       </div>
       {/* SIGN-IN */}
       <div className="Sign">
-        <Input className="Login-input" placeholder="arthur@lacapsule.com" />
-        <Input.Password className="Login-input" placeholder="password" />
-        <Link to="/screensource">
-          <Button style={{ width: '80px' }} type="primary">Sign-in</Button>
-        </Link>
+        <Input className="Login-input" placeholder="arthur@lacapsule.com" onChange={(e) => setSignInUsername(e.target.value)} />
+        <Input.Password className="Login-input" placeholder="password" onChange={(e) => setSignInPassword(e.target.value)} />
+        <Button style={{ width: '80px' }} type="primary" onClick={() => handleSubmitSignIn()}>Sign-in</Button>
       </div>
 
       {/* SIGN-UP */}
