@@ -41,16 +41,24 @@ router.post('/sign-up', async function (req, res, next) {
 });
 
 router.post('/sign-in', async function (req, res, next) {
-  const findUser = await usersModel.findOne({
-    email: req.body.email,
-    password: req.body.password,
-  })
-
-  if (findUser) {
-    res.json({ message: true });
-  } else {
-    res.json({ message: 'Vous avez peut être fait une erreur sur votre mail ou mot de passe' });
+  let message
+  if (req.body.email === '' || req.body.password === '') {
+    message = 'Merci de saisir tous les champs'
   }
+  else {
+    const findUser = await usersModel.findOne({
+      email: req.body.email,
+      password: req.body.password,
+    })
+    
+    if (!findUser) {
+      message = 'Vous avez peut être fait une erreur sur votre mail ou mot de passe'
+    } else {
+      message = true
+    }
+  }
+
+  res.json({ message });
 });
 
 module.exports = router;
