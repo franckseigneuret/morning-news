@@ -8,8 +8,10 @@ function ScreenHome() {
   const [redirect, setRedirect] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [signUpUsername, setSignUpUsername] = useState('')
+  const [signUpEmail, setSignUpEmail] = useState('')
   const [signUpPassword, setSignUpPassword] = useState('')
-  const [signInUsername, setSignInUsername] = useState('')
+
+  const [signInEmail, setSignInEmail] = useState('')
   const [signInPassword, setSignInPassword] = useState('')
 
   const handleSubmitSignUp = async () => {
@@ -17,7 +19,7 @@ function ScreenHome() {
     await fetch('/sign-up', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `username=${signUpUsername}&password=${signUpPassword}`
+      body: `username=${signUpUsername}&password=${signUpPassword}&email=${signUpEmail}`
     })
       .then(response => response.json())
       .then(data => {
@@ -34,7 +36,7 @@ function ScreenHome() {
     await fetch('/sign-in', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `username=${signInUsername}&password=${signInPassword}`
+      body: `email=${signInEmail}&password=${signInPassword}`
     })
       .then(response => {
         let j = response.json()
@@ -56,7 +58,7 @@ function ScreenHome() {
       </div>
       {/* SIGN-IN */}
       <div className="Sign">
-        <Input className="Login-input" placeholder="arthur@lacapsule.com" onChange={(e) => setSignInUsername(e.target.value)} />
+        <Input className="Login-input" placeholder="arthur@lacapsule.com" onChange={(e) => setSignInEmail(e.target.value)} />
         <Input.Password className="Login-input" placeholder="password" onChange={(e) => setSignInPassword(e.target.value)} />
         <Button style={{ width: '80px' }} type="primary" onClick={() => handleSubmitSignIn()}>Sign-in</Button>
       </div>
@@ -64,6 +66,7 @@ function ScreenHome() {
       {/* SIGN-UP */}
       <div className="Sign">
         <Input className="Login-input" placeholder="Arthur G" onChange={(e) => setSignUpUsername(e.target.value)} />
+        <Input className="Login-input" placeholder="arthur@lacapsule.com" onChange={(e) => setSignUpEmail(e.target.value)} />
         <Input.Password className="Login-input" placeholder="password" onChange={(e) => setSignUpPassword(e.target.value)} />
         <Button style={{ width: '80px' }} type="primary" onClick={() => handleSubmitSignUp()}>Sign-up</Button>
         {

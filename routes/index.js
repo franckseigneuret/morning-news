@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/sign-up', async function(req, res, next) {
   const addUser = new usersModel({
     username: req.body.username,
+    email: req.body.email,
     password: req.body.password,
     date: new Date(),
   });
@@ -24,14 +25,14 @@ router.post('/sign-up', async function(req, res, next) {
 
 router.post('/sign-in', async function(req, res, next) {
   const findUser = await usersModel.findOne({
-    username: req.body.username,
+    email: req.body.email,
     password: req.body.password,
   })
 
   if(findUser) {
     res.json({ message: true });
   } else {
-    res.json({ message: 'Vous avez peut être fait une erreur sur votre nom ou mot de passe' });
+    res.json({ message: 'Vous avez peut être fait une erreur sur votre mail ou mot de passe' });
   }
 });
 
