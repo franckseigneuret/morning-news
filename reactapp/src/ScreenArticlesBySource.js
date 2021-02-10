@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import { Card, Icon, Modal } from 'antd';
 import Nav from './Nav'
@@ -61,7 +62,7 @@ function ScreenArticlesBySource(props) {
               <p>{item.content}</p>
             </Modal>
           </>,
-          <Icon type="like" key="ellipsis" />
+          <Icon type="like" key="ellipsis" onClick={() => { props.addToWishList(item) }} />
         ]}
       >
 
@@ -87,4 +88,16 @@ function ScreenArticlesBySource(props) {
   );
 }
 
-export default ScreenArticlesBySource;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToWishList: (article) => {
+      console.log(article)
+      dispatch({ type: 'addArticle', articleLike: article})
+    }
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ScreenArticlesBySource);
