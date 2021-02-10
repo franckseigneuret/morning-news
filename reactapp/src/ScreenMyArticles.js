@@ -39,7 +39,7 @@ function ScreenMyArticles(props) {
 
           actions={[
             <Icon type="read" key="ellipsis2" />,
-            <Icon type="delete" key="ellipsis" />
+            <Icon type="delete" key="ellipsis" onClick={() => props.deleteToWishList(article.title)} />
           ]}
         >
           <Meta
@@ -59,18 +59,26 @@ function ScreenMyArticles(props) {
       <div className="Banner" />
       <div className="Card">
 
-        {articlesContainer}
+        {
+          articlesContainer.length > 0 ? articlesContainer : <p>No Articles</p>
+        }
 
       </div>
     </div>
   );
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { wishList: state.wishList }
 }
-
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteToWishList: (article) => {
+      dispatch({ type: 'deleteArticle', articleTitleDeleted: article })
+    }
+  }
+}
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(ScreenMyArticles);

@@ -20,7 +20,6 @@ function ScreenArticlesBySource(props) {
 
       const data = await fetch(urlNewsAPI)
       const body = await data.json()
-
       setArticleList(body.articles)
     }
     APIResultsLoading()

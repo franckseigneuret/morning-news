@@ -8,6 +8,13 @@ export default function (wishList = [], action) {
 
       break
 
+    case 'deleteArticle':
+      let wishListCopy2 = [...wishList]
+      wishListCopy2 = wishListCopy2.filter((item) => action.articleTitleDeleted !== item.title)
+      return wishListCopy2
+
+      break
+
     default:
       return wishList
 
