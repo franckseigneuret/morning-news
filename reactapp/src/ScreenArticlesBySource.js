@@ -20,7 +20,7 @@ function ScreenArticlesBySource(props) {
 
       const data = await fetch(urlNewsAPI)
       const body = await data.json()
-      console.log(body.articles)
+
       setArticleList(body.articles)
     }
     APIResultsLoading()
@@ -82,7 +82,7 @@ function ScreenArticlesBySource(props) {
       <div className="Banner" />
 
       <div className="Card">
-          {articleListComponent}
+        {articleListComponent}
       </div>
     </div>
   );
@@ -91,8 +91,7 @@ function ScreenArticlesBySource(props) {
 const mapDispatchToProps = (dispatch) => {
   return {
     addToWishList: (article) => {
-      console.log(article)
-      dispatch({ type: 'addArticle', articleLike: article})
+      dispatch({ type: 'addArticle', articleLike: article })
     }
   }
 }
