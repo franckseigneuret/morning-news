@@ -6,10 +6,11 @@ import ScreenSource from './ScreenSource';
 import ScreenMyArticles from './ScreenMyArticles';
 import ScreenArticlesBySource from './ScreenArticlesBySource';
 
+import wishList from './reducers/article.reducer';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
-const store = createStore(combineReducers({ }));
+const store = createStore(combineReducers({ wishList }));
 
 function App() {
   return (
