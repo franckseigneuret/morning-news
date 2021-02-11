@@ -48,6 +48,8 @@ router.post('/sign-up', async function (req, res, next) {
 
 router.post('/sign-in', async function (req, res, next) {
   let message
+  let token
+
   if (req.body.email === '' || req.body.password === '') {
     message = 'Merci de saisir tous les champs'
   }
@@ -58,12 +60,13 @@ router.post('/sign-in', async function (req, res, next) {
 
     if (findUser && bcrypt.compareSync(req.body.password, findUser.password)) {
       message = true
+      token = findUser.token
     } else {
       message = 'Vous avez peut être fait une erreur sur votre mail ou mot de passe'
     }
   }
 
-  res.json({ message });
+  res.json({ message, token });
 });
 
 module.exports = router;

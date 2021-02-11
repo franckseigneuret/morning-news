@@ -24,8 +24,8 @@ function ScreenHome(props) {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.message === true && data.token.length > 0) {
-          props.addUserToken(data.token)
+        if (data.message === true && data.token) {
+          props.addUserToken(data.token) // store la valeur du token
           setRedirect(true)
         } else {
           setErrorMessage(data.message)
@@ -45,7 +45,8 @@ function ScreenHome(props) {
         return j
       })
       .then(data => {
-        if (data.message === true) {
+        if (data.message === true && data.token) {
+          props.addUserToken(data.token) // store la veleur du token
           setRedirect(true)
         } else {
           setErrorMessage(data.message)
@@ -82,9 +83,10 @@ function ScreenHome(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    // store la valeur du token
     addUserToken: (token) => {
       dispatch({ type: 'addToken', payload: token }) // dispatch l'objet vers le reducer (objet nommé action)
-    }
+    },
   }
 }
 
