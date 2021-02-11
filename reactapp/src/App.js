@@ -7,10 +7,14 @@ import ScreenMyArticles from './ScreenMyArticles';
 import ScreenArticlesBySource from './ScreenArticlesBySource';
 
 import wishList from './reducers/article.reducer';
+import user from './reducers/user.reducer';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
-const store = createStore(combineReducers({ wishList }));
+const store = createStore(
+  combineReducers({ wishList, user }),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // pour lire le store dans extension chrome
+);
 
 function App() {
   return (

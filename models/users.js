@@ -5,6 +5,7 @@ var usersSchema = mongoose.Schema({
   password: String,
   email: String,
   date: Date,
+  token: String,
 });
 
 module.exports = mongoose.model('users', usersSchema);

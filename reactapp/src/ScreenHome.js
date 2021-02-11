@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Redirect } from "react-router-dom";
+import { connect } from 'react-redux'
 import './App.css';
 import { Input, Button } from 'antd';
 
-function ScreenHome() {
+function ScreenHome(props) {
 
   const [redirect, setRedirect] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -23,7 +24,8 @@ function ScreenHome() {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.message === true) {
+        if (data.message === true && data.token.length > 0) {
+          props.addUserToken(data.token)
           setRedirect(true)
         } else {
           setErrorMessage(data.message)
@@ -78,4 +80,15 @@ function ScreenHome() {
   );
 }
 
-export default ScreenHome;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUserToken: (token) => {
+      dispatch({ type: 'addToken', payload: token }) // dispatch l'objet vers le reducer (objet nommé action)
+    }
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ScreenHome);
