@@ -55,6 +55,12 @@ h4 {
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 0.8;
+  text-align: center;
+}
+.Banner img {
+  cursor: pointer;
+  width: 80px;
+  margin: 10px;
 }
 
 .Card{
