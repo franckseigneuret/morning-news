@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 const usersModel = require('../models/users')
+const token = require('uid2')
+const bcrypt = require('bcrypt')
+const cost = 10
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -28,7 +31,7 @@ router.post('/sign-up', async function (req, res, next) {
       const addUser = new usersModel({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
+        password: bcrypt.hashSync(req.body.password, cost),
         date: new Date(),
       });
 
