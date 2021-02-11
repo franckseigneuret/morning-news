@@ -51,13 +51,12 @@ router.post('/sign-in', async function (req, res, next) {
   else {
     const findUser = await usersModel.findOne({
       email: req.body.email,
-      password: req.body.password,
     })
     
-    if (!findUser) {
-      message = 'Vous avez peut être fait une erreur sur votre mail ou mot de passe'
-    } else {
+    if(findUser && bcrypt.compareSync(req.body.password, findUser.password)) {
       message = true
+    } else {
+      message = 'Vous avez peut être fait une erreur sur votre mail ou mot de passe'
     }
   }
 
