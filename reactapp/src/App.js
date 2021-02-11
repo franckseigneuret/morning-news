@@ -22,6 +22,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact component={ScreenHome} />
+          <Route path="/logout" exact component={ScreenHome} />
           <Route path="/screensource" component={ScreenSource} />
           <Route path="/screenmyarticles" component={ScreenMyArticles} />
           <Route path="/screenarticlesbysource/:id" component={ScreenArticlesBySource} />

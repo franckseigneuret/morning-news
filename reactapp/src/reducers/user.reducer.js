@@ -7,6 +7,11 @@ export default function (token = '', action = {}) {
 
       break
 
+    case 'removeToken':
+      return ''
+
+      break
+
     default:
       return token
 

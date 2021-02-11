@@ -5,6 +5,11 @@ import './App.css';
 import { Input, Button } from 'antd';
 
 function ScreenHome(props) {
+  const logoutBoolean = /\/logout$/.test(document.location.href)
+  if (logoutBoolean) {
+    props.removeUserToken()
+    // @TODO : empty wishlist store
+  }
 
   const [redirect, setRedirect] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -75,6 +80,9 @@ function ScreenHome(props) {
         {
           redirect ? <Redirect to="screensource" /> : ''
         }
+        {
+          logoutBoolean ? <Redirect to="/" /> : ''
+        }
       </div>
 
     </div>
@@ -83,10 +91,12 @@ function ScreenHome(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // store la valeur du token
-    addUserToken: (token) => {
+    addUserToken: (token) => { // store la valeur du token
       dispatch({ type: 'addToken', payload: token }) // dispatch l'objet vers le reducer (objet nommé action)
     },
+    removeUserToken: () => {
+      dispatch({ type: 'removeToken' })
+    }
   }
 }
 
